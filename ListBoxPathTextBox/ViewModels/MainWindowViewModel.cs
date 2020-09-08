@@ -40,7 +40,11 @@ namespace ListBoxPathTextBox.ViewModels
 
             AddElementCommand = new DelegateCommand(model.AddPathElement);
             RemoveElementCommand = new DelegateCommand(model.RemovePathElement);
-            TextListMouseDownCommand = new DelegateCommand(clearFocus.ClearFocus);
+            TextListMouseDownCommand = new DelegateCommand(() =>
+            {
+                clearFocus.ClearFocus();
+                model.TextListSelectedItem = null;
+            });
         }
     }
 }
