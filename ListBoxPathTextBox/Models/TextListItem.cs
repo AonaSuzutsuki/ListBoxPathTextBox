@@ -17,16 +17,24 @@ namespace ListBoxPathTextBox.Models
             set => SetProperty(ref _text, value);
         }
 
+        public Action<TextListItem> TextBoxGotFocusAction { get; set; }
         public ICommand ClearTextCommand { get; set; }
+        public ICommand TextBoxGotFocusCommand { get; set; }
 
         public TextListItem()
         {
             ClearTextCommand = new DelegateCommand(ClearText);
+            TextBoxGotFocusCommand = new DelegateCommand(TextBoxGotFocus);
         }
 
         public void ClearText()
         {
             Text = string.Empty;
+        }
+
+        public void TextBoxGotFocus()
+        {
+            TextBoxGotFocusAction?.Invoke(this);
         }
     }
 }

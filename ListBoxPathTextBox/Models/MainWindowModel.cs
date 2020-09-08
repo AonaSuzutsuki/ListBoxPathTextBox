@@ -33,7 +33,10 @@ namespace ListBoxPathTextBox.Models
 
         public void AddPathElement()
         {
-            TextListItems.Add(new TextListItem());
+            TextListItems.Add(new TextListItem
+            {
+                TextBoxGotFocusAction = item => TextListSelectedItem = item
+            });
         }
 
         public void RemovePathElement()
