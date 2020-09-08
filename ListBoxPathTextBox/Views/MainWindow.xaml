@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:ListBoxPathTextBox.Models"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:ListBoxPathTextBox"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -26,13 +27,13 @@
             <Button Grid.Row="2" Content="-" IsEnabled="{Binding CanRemove.Value}" Command="{Binding RemoveElementCommand}" />
         </Grid>
 
-        <ListBox Grid.Column="2" ItemsSource="{Binding TextList}" SelectedItem="{Binding TextListSelectedItem.Value}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="VerticalContentAlignment" Value="Center" />
-                </Style>
-            </ListBox.ItemContainerStyle>
+        <ListBox Name="Box" Grid.Column="2" ItemsSource="{Binding TextList}" SelectedItem="{Binding TextListSelectedItem.Value}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding TextListMouseDownCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="models:TextListItem">
@@ -40,21 +41,31 @@
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
+                            <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="50" />
                         </Grid.ColumnDefinitions>
 
                         <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="GotFocus">
+                                    <i:InvokeCommandAction Command="{Binding TextBoxGotFocusCommand}" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction Command="{Binding TextBoxLostFocusCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
                             <TextBox.Resources>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type TextBoxBase}">
-                                                <Border Name="TextBoxBorder" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" BorderThickness="1" BorderBrush="Transparent">
+                                                <Border Name="TextBoxBorder" BorderThickness="0" BorderBrush="{TemplateBinding BorderBrush}">
                                                     <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
                                                 </Border>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                                        <Setter TargetName="TextBoxBorder" Property="BorderBrush" Value="Black" />
+                                                        <Setter TargetName="TextBoxBorder" Property="BorderThickness" Value="1" />
                                                     </Trigger>
                                                 </ControlTemplate.Triggers>
                                             </ControlTemplate>
@@ -64,7 +75,7 @@
                             </TextBox.Resources>
                         </TextBox>
 
-                        <Button Grid.Column="1" Name="PlusBT" Content="Clear" Height="25" Command="{Binding ClearTextCommand}" />
+                        <Button Grid.Column="2" Name="PlusBT" Content="Clear" Height="25" Command="{Binding ClearTextCommand}" />
                     </Grid>
 
                     <DataTemplate.Triggers>

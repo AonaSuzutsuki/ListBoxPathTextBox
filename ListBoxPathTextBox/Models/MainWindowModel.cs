@@ -10,8 +10,14 @@ namespace ListBoxPathTextBox.Models
 {
     public class MainWindowModel : BindableBase
     {
+        #region Fields
+
         private TextListItem _textListSelectedItem;
         private bool _canRemove;
+
+        #endregion
+
+        #region Properties
 
         public ObservableCollection<TextListItem> TextListItems { get; } = new ObservableCollection<TextListItem>();
 
@@ -31,9 +37,14 @@ namespace ListBoxPathTextBox.Models
             set => SetProperty(ref _canRemove, value);
         }
 
+        #endregion
+
         public void AddPathElement()
         {
-            TextListItems.Add(new TextListItem());
+            TextListItems.Add(new TextListItem
+            {
+                TextBoxGotFocusAction = item => TextListSelectedItem = item
+            });
         }
 
         public void RemovePathElement()
