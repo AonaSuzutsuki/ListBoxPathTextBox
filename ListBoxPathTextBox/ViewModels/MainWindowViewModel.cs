@@ -13,15 +13,27 @@ namespace ListBoxPathTextBox.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
+        #region Fields
+
         private readonly MainWindowModel _model;
+
+        #endregion
+
+        #region Properties
 
         public ReadOnlyCollection<TextListItem> TextList { get; set; }
         public ReactiveProperty<TextListItem> TextListSelectedItem { get; set; }
 
         public ReactiveProperty<bool> CanRemove { get; set; }
 
+        #endregion
+
+        #region Event Properties
+
         public ICommand AddElementCommand { get; set; }
         public ICommand RemoveElementCommand { get; set; }
+
+        #endregion
 
         public MainWindowViewModel(MainWindowModel model)
         {
