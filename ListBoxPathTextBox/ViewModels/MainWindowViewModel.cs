@@ -13,7 +13,6 @@ namespace ListBoxPathTextBox.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private readonly MainWindowModel _model;
 
         public ReadOnlyCollection<TextListItem> TextList { get; set; }
         public ReactiveProperty<TextListItem> TextListSelectedItem { get; set; }
@@ -25,24 +24,12 @@ namespace ListBoxPathTextBox.ViewModels
 
         public MainWindowViewModel(MainWindowModel model)
         {
-            _model = model;
-
             TextList = model.TextListItems.ToReadOnlyReactiveCollection(m => m);
             TextListSelectedItem = model.ToReactivePropertyAsSynchronized(m => m.TextListSelectedItem);
             CanRemove = model.ObserveProperty(m => m.CanRemove).ToReactiveProperty();
 
-            AddElementCommand = new DelegateCommand(AddElement);
-            RemoveElementCommand = new DelegateCommand(RemoveElement);
-        }
-
-        public void AddElement()
-        {
-            _model.AddPathElement();
-        }
-
-        public void RemoveElement()
-        {
-            _model.RemovePathElement();
+            AddElementCommand = new DelegateCommand(model.AddPathElement);
+            RemoveElementCommand = new DelegateCommand(model.RemovePathElement);
         }
     }
 }

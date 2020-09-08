@@ -19,14 +19,10 @@ namespace ListBoxPathTextBox.Models
 
         public ICommand ClearTextCommand { get; set; }
 
+
         public TextListItem()
         {
-            ClearTextCommand = new DelegateCommand(ClearText);
-        }
-
-        public void ClearText()
-        {
-            Text = string.Empty;
+            ClearTextCommand = new DelegateCommand(() => Text = string.Empty);
         }
     }
 }
