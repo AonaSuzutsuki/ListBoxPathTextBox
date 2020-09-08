@@ -9,7 +9,13 @@ namespace ListBoxPathTextBox.Models
 {
     public class TextListItem : BindableBase
     {
+        #region Fields
+
         private string _text;
+
+        #endregion
+
+        #region Properties
 
         public string Text
         {
@@ -18,8 +24,14 @@ namespace ListBoxPathTextBox.Models
         }
 
         public Action<TextListItem> TextBoxGotFocusAction { get; set; }
+        #endregion
+
+        #region Event Properties
+
         public ICommand ClearTextCommand { get; set; }
         public ICommand TextBoxGotFocusCommand { get; set; }
+
+        #endregion
 
         public TextListItem()
         {
