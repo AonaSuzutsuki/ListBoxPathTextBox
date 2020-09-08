@@ -27,13 +27,13 @@
             <Button Grid.Row="2" Content="-" IsEnabled="{Binding CanRemove.Value}" Command="{Binding RemoveElementCommand}" />
         </Grid>
 
-        <ListBox Grid.Column="2" ItemsSource="{Binding TextList}" SelectedItem="{Binding TextListSelectedItem.Value}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="VerticalContentAlignment" Value="Center" />
-                </Style>
-            </ListBox.ItemContainerStyle>
+        <ListBox Name="Box" Grid.Column="2" ItemsSource="{Binding TextList}" SelectedItem="{Binding TextListSelectedItem.Value}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ProcessItemsMouseDownCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="models:TextListItem">
@@ -49,6 +49,9 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="GotFocus">
                                     <i:InvokeCommandAction Command="{Binding TextBoxGotFocusCommand}" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction Command="{Binding TextBoxLostFocusCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
 

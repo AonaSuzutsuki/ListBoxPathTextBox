@@ -20,14 +20,19 @@ namespace ListBoxPathTextBox.Views
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IClearFocus
     {
         public MainWindow()
         {
             InitializeComponent();
 
             var model  = new MainWindowModel();
-            DataContext = new MainWindowViewModel(model);
+            DataContext = new MainWindowViewModel(model, this);
+        }
+
+        public void ClearFocus()
+        {
+            Box.Focus();
         }
     }
 }
