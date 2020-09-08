@@ -31,7 +31,7 @@
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
-                    <i:InvokeCommandAction Command="{Binding ProcessItemsMouseDownCommand}" />
+                    <i:InvokeCommandAction Command="{Binding TextListMouseDownCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 

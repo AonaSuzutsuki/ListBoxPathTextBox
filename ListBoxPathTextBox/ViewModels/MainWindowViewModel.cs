@@ -28,7 +28,7 @@ namespace ListBoxPathTextBox.ViewModels
 
         public ICommand AddElementCommand { get; set; }
         public ICommand RemoveElementCommand { get; set; }
-        public ICommand ProcessItemsMouseDownCommand { get; set; }
+        public ICommand TextListMouseDownCommand { get; set; }
 
         #endregion
 
@@ -40,7 +40,7 @@ namespace ListBoxPathTextBox.ViewModels
 
             AddElementCommand = new DelegateCommand(model.AddPathElement);
             RemoveElementCommand = new DelegateCommand(model.RemovePathElement);
-            ProcessItemsMouseDownCommand = new DelegateCommand(clearFocus.ClearFocus);
+            TextListMouseDownCommand = new DelegateCommand(clearFocus.ClearFocus);
         }
     }
 }
