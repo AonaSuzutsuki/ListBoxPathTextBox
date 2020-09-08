@@ -35,18 +35,8 @@ namespace ListBoxPathTextBox.Models
 
         public TextListItem()
         {
-            ClearTextCommand = new DelegateCommand(ClearText);
-            TextBoxGotFocusCommand = new DelegateCommand(TextBoxGotFocus);
-        }
-
-        public void ClearText()
-        {
-            Text = string.Empty;
-        }
-
-        public void TextBoxGotFocus()
-        {
-            TextBoxGotFocusAction?.Invoke(this);
+            ClearTextCommand = new DelegateCommand(() => Text = string.Empty);
+            TextBoxGotFocusCommand = new DelegateCommand(() => TextBoxGotFocusAction?.Invoke(this));
         }
     }
 }
