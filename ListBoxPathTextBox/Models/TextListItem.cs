@@ -9,7 +9,13 @@ namespace ListBoxPathTextBox.Models
 {
     public class TextListItem : BindableBase
     {
+        #region Fields
+
         private string _text;
+
+        #endregion
+
+        #region Properties
 
         public string Text
         {
@@ -17,8 +23,13 @@ namespace ListBoxPathTextBox.Models
             set => SetProperty(ref _text, value);
         }
 
+        #endregion
+
+        #region Event Properties
+
         public ICommand ClearTextCommand { get; set; }
 
+        #endregion
 
         public TextListItem()
         {
