@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
 using Prism.Commands;
@@ -30,23 +31,18 @@ namespace ListBoxPathTextBox.Models
 
         public ICommand ClearTextCommand { get; set; }
         public ICommand TextBoxGotFocusCommand { get; set; }
+        public ICommand TextBoxLostFocusCommand { get; set; }
 
         #endregion
 
         public TextListItem()
         {
-            ClearTextCommand = new DelegateCommand(ClearText);
-            TextBoxGotFocusCommand = new DelegateCommand(TextBoxGotFocus);
-        }
-
-        public void ClearText()
-        {
-            Text = string.Empty;
-        }
-
-        public void TextBoxGotFocus()
-        {
-            TextBoxGotFocusAction?.Invoke(this);
+            ClearTextCommand = new DelegateCommand(() => Text = string.Empty);
+            TextBoxGotFocusCommand = new DelegateCommand(() => TextBoxGotFocusAction?.Invoke(this));
+            TextBoxLostFocusCommand = new DelegateCommand(() =>
+            {
+                Debug.WriteLine("TextBoxLostFocusCommand");
+            });
         }
     }
 }
